@@ -16,6 +16,7 @@ import { Route as DashboardImport } from './routes/dashboard'
 import { Route as IndexImport } from './routes/index'
 import { Route as DashboardIndexImport } from './routes/dashboard/index'
 import { Route as DashboardUsersImport } from './routes/dashboard/users'
+import { Route as DashboardSubscriptionsImport } from './routes/dashboard/subscriptions'
 import { Route as DashboardChannelsImport } from './routes/dashboard/channels'
 import { Route as DashboardBotImport } from './routes/dashboard/bot'
 
@@ -48,6 +49,12 @@ const DashboardIndexRoute = DashboardIndexImport.update({
 const DashboardUsersRoute = DashboardUsersImport.update({
   id: '/users',
   path: '/users',
+  getParentRoute: () => DashboardRoute,
+} as any)
+
+const DashboardSubscriptionsRoute = DashboardSubscriptionsImport.update({
+  id: '/subscriptions',
+  path: '/subscriptions',
   getParentRoute: () => DashboardRoute,
 } as any)
 
@@ -102,6 +109,13 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof DashboardChannelsImport
       parentRoute: typeof DashboardImport
     }
+    '/dashboard/subscriptions': {
+      id: '/dashboard/subscriptions'
+      path: '/subscriptions'
+      fullPath: '/dashboard/subscriptions'
+      preLoaderRoute: typeof DashboardSubscriptionsImport
+      parentRoute: typeof DashboardImport
+    }
     '/dashboard/users': {
       id: '/dashboard/users'
       path: '/users'
@@ -124,6 +138,7 @@ declare module '@tanstack/react-router' {
 interface DashboardRouteChildren {
   DashboardBotRoute: typeof DashboardBotRoute
   DashboardChannelsRoute: typeof DashboardChannelsRoute
+  DashboardSubscriptionsRoute: typeof DashboardSubscriptionsRoute
   DashboardUsersRoute: typeof DashboardUsersRoute
   DashboardIndexRoute: typeof DashboardIndexRoute
 }
@@ -131,6 +146,7 @@ interface DashboardRouteChildren {
 const DashboardRouteChildren: DashboardRouteChildren = {
   DashboardBotRoute: DashboardBotRoute,
   DashboardChannelsRoute: DashboardChannelsRoute,
+  DashboardSubscriptionsRoute: DashboardSubscriptionsRoute,
   DashboardUsersRoute: DashboardUsersRoute,
   DashboardIndexRoute: DashboardIndexRoute,
 }
@@ -145,6 +161,7 @@ export interface FileRoutesByFullPath {
   '/login': typeof LoginRoute
   '/dashboard/bot': typeof DashboardBotRoute
   '/dashboard/channels': typeof DashboardChannelsRoute
+  '/dashboard/subscriptions': typeof DashboardSubscriptionsRoute
   '/dashboard/users': typeof DashboardUsersRoute
   '/dashboard/': typeof DashboardIndexRoute
 }
@@ -154,6 +171,7 @@ export interface FileRoutesByTo {
   '/login': typeof LoginRoute
   '/dashboard/bot': typeof DashboardBotRoute
   '/dashboard/channels': typeof DashboardChannelsRoute
+  '/dashboard/subscriptions': typeof DashboardSubscriptionsRoute
   '/dashboard/users': typeof DashboardUsersRoute
   '/dashboard': typeof DashboardIndexRoute
 }
@@ -165,6 +183,7 @@ export interface FileRoutesById {
   '/login': typeof LoginRoute
   '/dashboard/bot': typeof DashboardBotRoute
   '/dashboard/channels': typeof DashboardChannelsRoute
+  '/dashboard/subscriptions': typeof DashboardSubscriptionsRoute
   '/dashboard/users': typeof DashboardUsersRoute
   '/dashboard/': typeof DashboardIndexRoute
 }
@@ -177,6 +196,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/dashboard/bot'
     | '/dashboard/channels'
+    | '/dashboard/subscriptions'
     | '/dashboard/users'
     | '/dashboard/'
   fileRoutesByTo: FileRoutesByTo
@@ -185,6 +205,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/dashboard/bot'
     | '/dashboard/channels'
+    | '/dashboard/subscriptions'
     | '/dashboard/users'
     | '/dashboard'
   id:
@@ -194,6 +215,7 @@ export interface FileRouteTypes {
     | '/login'
     | '/dashboard/bot'
     | '/dashboard/channels'
+    | '/dashboard/subscriptions'
     | '/dashboard/users'
     | '/dashboard/'
   fileRoutesById: FileRoutesById
@@ -234,6 +256,7 @@ export const routeTree = rootRoute
       "children": [
         "/dashboard/bot",
         "/dashboard/channels",
+        "/dashboard/subscriptions",
         "/dashboard/users",
         "/dashboard/"
       ]
@@ -247,6 +270,10 @@ export const routeTree = rootRoute
     },
     "/dashboard/channels": {
       "filePath": "dashboard/channels.tsx",
+      "parent": "/dashboard"
+    },
+    "/dashboard/subscriptions": {
+      "filePath": "dashboard/subscriptions.tsx",
       "parent": "/dashboard"
     },
     "/dashboard/users": {

@@ -13,6 +13,9 @@ export const Header = () => {
           <Link href="/dashboard/users">Користувачі</Link>
         </NavbarItem>
         <NavbarItem>
+          <Link href="/dashboard/subscriptions">Підписки</Link>
+        </NavbarItem>
+        <NavbarItem>
           <Link href="/dashboard/bot">Бот</Link>
         </NavbarItem>
       </NavbarContent>

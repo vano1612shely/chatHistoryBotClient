@@ -13,6 +13,7 @@ import {
   TableHeader,
   TableRow,
 } from "@heroui/react";
+import dayjs from "dayjs";
 
 export const Route = createFileRoute("/dashboard/users")({
   component: RouteComponent,
@@ -65,13 +66,27 @@ function RouteComponent() {
         <TableColumn key="telegramId">CHAT_ID</TableColumn>
         <TableColumn key="firstName">FIRST_NAME</TableColumn>
         <TableColumn key="lastName">LAST_NAME</TableColumn>
+        <TableColumn key="has_subscription">HAS_SUBSCRIPTION</TableColumn>
+        <TableColumn key="subscription_end_date">
+          SUBSCRIPTION_END_DATE
+        </TableColumn>
       </TableHeader>
       <TableBody items={items}>
         {(item) => (
           <TableRow key={item.name}>
             {(columnKey) => (
               <TableCell>
-                {columnKey === "username" ? (
+                {columnKey === "subscription_end_date" ? (
+                  getKeyValue(item, columnKey) ? (
+                    dayjs(getKeyValue(item, columnKey)).format("DD.MM.YYYY")
+                  ) : null
+                ) : columnKey === "has_subscription" ? (
+                  getKeyValue(item, columnKey) ? (
+                    "Так"
+                  ) : (
+                    "Ні"
+                  )
+                ) : columnKey === "username" ? (
                   <Link href={`https://t.me/${item.username}`}>
                     @{getKeyValue(item, columnKey)}
                   </Link>
